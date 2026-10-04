@@ -83,7 +83,7 @@ jobs:
             ${{ env.ECR_REPOSITORY_URL }}:latest
 
       - name: Scan pushed image with Trivy
-        uses: aquasecurity/trivy-action@0.24.0
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: ${{ env.ECR_REPOSITORY_URL }}:${{ github.sha }}
           format: table

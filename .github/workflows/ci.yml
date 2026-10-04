@@ -64,7 +64,7 @@ jobs:
           docker image inspect goldenowl-devops-test:${{ github.sha }} --format='Image size: {{.Size}} bytes'
 
       - name: Scan image with Trivy
-        uses: aquasecurity/trivy-action@0.24.0
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: goldenowl-devops-test:${{ github.sha }}
           format: table
