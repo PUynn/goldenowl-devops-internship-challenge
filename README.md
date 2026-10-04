@@ -4,13 +4,15 @@ This repository contains a containerized Node.js application and a complete DevO
 
 ## Submission Information
 
-| Requirement | Value |
-| --- | --- |
-| Public GitHub repository | https://github.com/PUynn/goldenowl-devops-internship-challenge |
-| Deployment link | ......... |
-| Visual flow diagram | .......... |
-| Final Docker image size | maybe ..... |
+| Requirement              | Value                                                          |
+| ------------------------ | -------------------------------------------------------------- |
+| Deployment link          | http://goldenowl-devops-test-alb-2051046180.ap-southeast-1.elb.amazonaws.com/ |
+| Visual flow diagram      | https://drive.google.com/file/d/14WpdrYOfTOsNvTSk0LOdzGrhI464Sr8y/view?usp=sharing                                               |
+| Final Docker image size  |      173823422 bytes  (165.77MB)  |
 
+## Visual Flow Diagram
+
+![Visual flow diagram](docs/visual_flow.drawio.png)
 
 ## Project Overview
 
@@ -104,7 +106,7 @@ Workflow: `.github/workflows/ci.yml`
 
 The CI pipeline runs on:
 
-- Pushes to `main`
+- Pushes to `master`
 - Pushes to `feature/**`
 - Pushes to `feat/**`
 - Pull requests
@@ -125,7 +127,7 @@ Workflow: `.github/workflows/deploy.yml`
 
 The CD pipeline runs on:
 
-- Pushes to `main`
+- Pushes to `master`
 - Manual `workflow_dispatch`
 
 Deployment steps include:
@@ -198,14 +200,14 @@ The main `terraform` stack creates:
 
 Default ECS capacity:
 
-| Setting | Value |
-| --- | --- |
-| Desired tasks | `2` |
-| Minimum tasks | `2` |
-| Maximum tasks | `4` |
-| Task CPU | `256` |
-| Task memory | `512 MiB` |
-| Container port | `3000` |
+| Setting        | Value     |
+| -------------- | --------- |
+| Desired tasks  | `2`       |
+| Minimum tasks  | `2`       |
+| Maximum tasks  | `4`       |
+| Task CPU       | `256`     |
+| Task memory    | `512 MiB` |
+| Container port | `3000`    |
 
 ## Manual Deployment Commands
 
@@ -258,4 +260,3 @@ Get the deployment URL:
 ```bash
 terraform -chdir=terraform output application_url
 ```
-
