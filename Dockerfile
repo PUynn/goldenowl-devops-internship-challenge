@@ -1,12 +1,12 @@
 # syntax=docker/dockerfile:1.7
 
-FROM node:20-alpine AS dependencies
+FROM node:24-alpine AS dependencies
 WORKDIR /app
 
 COPY src/package*.json ./
 RUN npm ci --omit=dev && npm cache clean --force
 
-FROM node:20-alpine AS runtime
+FROM node:24-alpine AS runtime
 ENV NODE_ENV=production
 ENV PORT=3000
 
