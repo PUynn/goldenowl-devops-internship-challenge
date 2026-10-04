@@ -1,0 +1,14 @@
+node_modules/
+**/node_modules/
+**/.npm-cache/
+.env
+.aws/
+.terraform/
+**/.terraform/
+terraform.tfstate
+terraform.tfstate.*
+*.tfvars
+*.tfvars.json
+crash.log
+crash.*.log
+.DS_Store
