@@ -2,38 +2,15 @@
 
 This repository contains a containerized Node.js application and a complete DevOps delivery setup for the Golden Owl DevOps Internship technical challenge. The solution uses Docker, GitHub Actions, AWS ECR, AWS ECS Fargate, an Application Load Balancer, ECS auto scaling, and Terraform-managed infrastructure.
 
-## Submission Guidelines 📬
-
-Your solution should be showcased in a public GitHub repository. We encourage you to commit early and often. We prefer to see a history of iterative progress rather than a single massive push.
-
-Your submission must include:
-
-- The URL of your public GitHub repository
-- The deployment link of your running application
-- The visual flow diagram, manually created and not AI-generated
-- The final Docker image size
-
-### Submission Information
+## Submission Information
 
 | Requirement | Value |
 | --- | --- |
 | Public GitHub repository | https://github.com/PUynn/goldenowl-devops-internship-challenge |
-| Deployment link | To be updated with the Application Load Balancer URL after deployment. Run `terraform -chdir=terraform output application_url` or check the `Show deployment URL` step in GitHub Actions. |
-| Visual flow diagram | To be exported manually into `docs/` using draw.io, Excalidraw, or Eraser. See `docs/visual-diagram-checklist.md`. |
-| Final Docker image size | `49,156,534 bytes` / `46.88 MiB` measured from `docker image inspect goldenowl-devops-test:readme --format='{{.Size}}'`. |
+| Deployment link | ......... |
+| Visual flow diagram | .......... |
+| Final Docker image size | maybe ..... |
 
-## Your Mission 🌟
-
-The mission is to build a CI/CD pipeline and deploy the application by:
-
-1. Forking the repository to a personal GitHub account.
-2. Dockerizing a Node.js application and keeping the image as lightweight as possible.
-3. Establishing an automated CI/CD build process using GitHub Actions and a container registry service.
-4. Initiating CI tests automatically when changes are pushed to a feature branch on GitHub.
-5. Using GitHub Actions for Continuous Deployment to deploy the application to AWS.
-6. Deploying the application behind a load balancer with auto scaling enabled.
-7. Provisioning all cloud infrastructure using Infrastructure as Code.
-8. Providing a visual flow diagram of the workflow and architecture, created manually without AI.
 
 ## Project Overview
 
@@ -175,11 +152,7 @@ TF_STATE_BUCKET
 TF_LOCK_TABLE
 ```
 
-For a production-grade setup, GitHub OIDC with least-privilege IAM roles is recommended. For this internship challenge, static AWS credentials can be used in a short-lived test account when scoped appropriately.
-
 ## Infrastructure
-
-All AWS infrastructure is provisioned with Terraform. No application infrastructure is created manually through the AWS console.
 
 ### Remote State
 
@@ -194,13 +167,6 @@ Bootstrap once:
 ```bash
 terraform -chdir=terraform/bootstrap init
 terraform -chdir=terraform/bootstrap apply
-```
-
-Copy the outputs into GitHub Actions secrets:
-
-```text
-tf_state_bucket -> TF_STATE_BUCKET
-tf_lock_table   -> TF_LOCK_TABLE
 ```
 
 ### ECR Stack
@@ -293,63 +259,3 @@ Get the deployment URL:
 terraform -chdir=terraform output application_url
 ```
 
-## Architecture
-
-Runtime traffic flow:
-
-```text
-Internet
-  -> Application Load Balancer
-  -> ECS Fargate service
-  -> Node.js container on port 3000
-```
-
-Deployment flow:
-
-```text
-Developer push to feature branch
-  -> GitHub Actions CI
-  -> format check, lint, tests, Docker build, Trivy scan
-  -> merge or push to main
-  -> GitHub Actions CD
-  -> Terraform provisions ECR
-  -> Docker image is pushed to ECR
-  -> Terraform provisions or updates AWS infrastructure
-  -> ECS Fargate deploys the new task definition behind the ALB
-```
-
-## Visual Flow Diagram
-
-The challenge requires a visual flow diagram created manually without AI generation.
-
-Recommended tools:
-
-- draw.io
-- Excalidraw
-- Eraser
-
-The diagram should include the CI flow, CD flow, ECR image storage, Terraform-managed AWS infrastructure, Application Load Balancer, ECS Fargate service, auto scaling, CloudWatch logs, and the user traffic path. Use `docs/visual-diagram-checklist.md` as the checklist before exporting the final diagram into the `docs/` directory.
-
-## Security and Reliability Notes
-
-- The container runs as a non-root user.
-- Trivy blocks images with HIGH or CRITICAL vulnerabilities when fixable issues are detected.
-- ECR scan-on-push is enabled.
-- ECS deployment circuit breaker is enabled with automatic rollback.
-- Terraform state is stored remotely with locking.
-- The ALB only accepts public HTTP traffic on port `80`.
-- ECS tasks only accept application traffic from the ALB security group.
-
-## Final Checklist
-
-- [x] Public GitHub repository URL added to README
-- [x] Dockerized Node.js application
-- [x] Final Docker image size added to README
-- [x] CI workflow for feature branches
-- [x] CD workflow for deployment from `main`
-- [x] Container registry through AWS ECR
-- [x] AWS ECS Fargate deployment behind an Application Load Balancer
-- [x] ECS auto scaling configured
-- [x] Cloud infrastructure provisioned with Terraform
-- [ ] Deployment link added after successful AWS deployment
-- [ ] Manually created visual flow diagram exported into `docs/`
